@@ -1,4 +1,4 @@
-modules = ["python-3.11"]
+modules = ["nodejs-20", "web"]
 
 # Vista previa dentro de Replit: servidor simple que muestra la carpeta public/
 run = "python3 -m http.server 8000 --bind 0.0.0.0 --directory public"
@@ -11,3 +11,6 @@ externalPort = 80
 [deployment]
 deploymentTarget = "static"
 publicDir = "public"
+
+[nix]
+channel = "stable-25_05"
