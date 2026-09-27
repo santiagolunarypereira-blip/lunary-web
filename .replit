@@ -1,4 +1,4 @@
-modules = ["nodejs-20", "web"]
+modules = ["nodejs-20", "web", "python-base-3.13"]
 
 # Vista previa dentro de Replit: servidor simple que muestra la carpeta public/
 run = "python3 -m http.server 8000 --bind 0.0.0.0 --directory public"
@@ -14,3 +14,27 @@ publicDir = "public"
 
 [nix]
 channel = "stable-25_05"
+
+[workflows]
+runButton = "Project"
+
+[[workflows.workflow]]
+name = "Project"
+mode = "parallel"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Start site preview"
+
+[[workflows.workflow]]
+name = "Start site preview"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "python3 -m http.server 8000 --bind 0.0.0.0 --directory public"
+waitForPort = 8000
+
+[workflows.workflow.metadata]
+outputType = "console"
