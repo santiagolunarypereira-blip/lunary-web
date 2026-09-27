@@ -16,7 +16,6 @@
   var touchOnly = matchMedia('(hover: none)').matches;
   var wideLayout = matchMedia('(min-width: 900px) and (min-aspect-ratio: 5/4)');
 
-  var stage = document.querySelector('.stage');
   var logo = document.querySelector('.logo');
   var G = { cell: 48, cols: 1, rows: 1, ox: 0, oy: 0, w: 0, h: 0 };
 
@@ -44,20 +43,28 @@
 
   /* ------------------------------------------------------------------ 2 */
   function sizeLogo() {
-    // logo cuadrado LN/RY: alto = ancho
+    // logo cuadrado LN/RY, discreto: su lado es un número entero de celdas
     var target = wideLayout.matches
-      ? Math.min(G.h * 0.56, G.w * 0.36)
-      : Math.min(G.h * 0.40, G.w * 0.74);
+      ? Math.min(G.h * 0.28, G.w * 0.18)
+      : Math.min(G.h * 0.24, G.w * 0.46);
     var n = Math.max(3, Math.floor(target / G.cell));
     root.style.setProperty('--logo-h', n * G.cell + 'px');
   }
 
-  function snapToGrid() {
-    stage.style.transform = '';
+  // El logo siempre queda centrado; es la retícula la que se desplaza
+  // para que sus líneas coincidan con los bordes del logo.
+  function alignGridToLogo() {
     var r = logo.getBoundingClientRect();
-    var gx = G.ox + Math.round((r.left - G.ox) / G.cell) * G.cell;
-    var gy = G.oy + Math.round((r.top - G.oy) / G.cell) * G.cell;
-    stage.style.transform = 'translate(' + (gx - r.left) + 'px,' + (gy - r.top) + 'px)';
+    var ox = ((r.left % G.cell) + G.cell) % G.cell;
+    var oy = ((r.top % G.cell) + G.cell) % G.cell;
+    if (ox > 0) ox -= G.cell;
+    if (oy > 0) oy -= G.cell;
+    G.ox = ox;
+    G.oy = oy;
+    G.cols = Math.ceil((G.w - ox) / G.cell) + 1;
+    G.rows = Math.ceil((G.h - oy) / G.cell) + 1;
+    root.style.setProperty('--gx', ox + 'px');
+    root.style.setProperty('--gy', oy + 'px');
   }
 
   /* ------------------------------------------------------------------ 3 */
@@ -444,7 +451,7 @@
   function layout() {
     computeGrid();
     sizeLogo();
-    snapToGrid();
+    alignGridToLogo();
     sizeWires();
     buildCutters();
     if (R.img) prepareReveal();
@@ -479,7 +486,7 @@
   }
 
   if (document.fonts && document.fonts.ready) {
-    document.fonts.ready.then(function () { snapToGrid(); });
+    document.fonts.ready.then(function () { layout(); });
   }
 
   runIntro();
