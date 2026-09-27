@@ -198,6 +198,7 @@ a.corner { transition: color .15s steps(2); }
 a.corner:hover, a.corner:focus-visible { color: var(--text); }
 
 .corner--tr time { color: var(--gray-1); }
+.corner--br { color: var(--gray-1); }
 
 /* En celular no caben las dos anotaciones de arriba completas */
 @media (max-width: 480px) {
@@ -314,6 +315,33 @@ a.corner:hover, a.corner:focus-visible { color: var(--text); }
 .cta:focus-visible .cta__arrow { transform: translateX(6px); }
 .cta:active { transform: translateY(1px); }
 .cta:focus-visible { outline: 2px solid var(--text); outline-offset: 3px; }
+.cta + .ig { margin-top: -6px; }
+
+/* Botón secundario: Instagram */
+.ig {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 48px;
+  padding: 0 20px;
+  border: 1px solid var(--gray-2);
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  transition: background-color .16s steps(2), color .16s steps(2), border-color .16s steps(2), opacity .36s steps(4);
+}
+.ig__icon { width: 18px; height: 18px; flex: none; }
+.ig__handle { color: var(--accent); transition: color .16s steps(2); }
+.ig__arrow { font-family: var(--font-body); transition: transform .2s steps(2); }
+.ig:hover, .ig:focus-visible { background: var(--text); color: var(--black); border-color: var(--text); }
+.ig:hover .ig__handle, .ig:focus-visible .ig__handle { color: var(--black); }
+.ig:hover .ig__arrow, .ig:focus-visible .ig__arrow { transform: translate(3px, -3px); }
+.ig:focus-visible { outline: 2px solid var(--text); outline-offset: 3px; }
+.ig:active { transform: translateY(1px); }
 
 /* Pie de página */
 .foot {
@@ -412,7 +440,8 @@ a.corner:hover, a.corner:focus-visible { color: var(--text); }
 .js-intro .wire,
 .js-intro .corner,
 .js-intro .foot,
-.js-intro .cta { opacity: 0; }
+.js-intro .cta,
+.js-intro .ig { opacity: 0; }
 
 .grid-lines, .deco, .wire, .corner, .foot, .cta {
   transition: opacity .36s steps(4);
