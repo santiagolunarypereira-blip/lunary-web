@@ -24,7 +24,7 @@
   --cell: 48px;
   --gx: 0px;
   --gy: 0px;
-  --logo-h: min(46svh, 104vw);
+  --logo-h: min(40svh, 74vw);
 
   --edge: 16px;
   --z-reveal: 1;

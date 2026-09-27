@@ -44,10 +44,10 @@
 
   /* ------------------------------------------------------------------ 2 */
   function sizeLogo() {
-    var ratio = 600.04 / 392.84;
+    // logo cuadrado LN/RY: alto = ancho
     var target = wideLayout.matches
-      ? Math.min(G.h * 0.62, G.w * 0.42 * ratio)
-      : Math.min(G.h * 0.46, G.w * 0.68 * ratio);
+      ? Math.min(G.h * 0.56, G.w * 0.36)
+      : Math.min(G.h * 0.40, G.w * 0.74);
     var n = Math.max(3, Math.floor(target / G.cell));
     root.style.setProperty('--logo-h', n * G.cell + 'px');
   }
@@ -69,7 +69,7 @@
     var mask = document.getElementById('logo-mask');
     var paths = document.querySelector('.logo__paths');
     if (!mask || !paths) return;
-    var W = 392.84, H = 600.04, cols = 12;
+    var W = 248.44, H = 248.76, cols = 10;
     var s = W / cols, rows = Math.ceil(H / s);
     for (var r = 0; r < rows; r++) {
       for (var c = 0; c < cols; c++) {
