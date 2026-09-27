@@ -1,0 +1,183 @@
+/* ==========================================================================
+   Lunary — página de links (reemplazo del link in bio de Instagram)
+   Se apoya en styles.css (paleta, fuentes, grano, aviso de cookies).
+   ========================================================================== */
+
+body.links-page { min-height: 100svh; }
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+/* Fondo: retícula + mosaico de la textura de marca (imagen fija) */
+.lk-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background: #000 url("/assets/links-bg.webp") center top / cover no-repeat;
+  opacity: .9;
+}
+@media (min-width: 700px) {
+  .lk-bg { opacity: .5; }
+}
+
+.lk {
+  position: relative;
+  z-index: 1;
+  width: min(100% - 32px, 480px);
+  margin: 0 auto;
+  padding: calc(40px + env(safe-area-inset-top)) 0 24px;
+}
+
+/* Cabecera */
+.lk__head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+  margin-bottom: 28px;
+}
+.lk__logo {
+  width: 72px;
+  height: 72px;
+  padding: 12px;
+  background: var(--black);
+  box-sizing: content-box;
+}
+.lk__name {
+  margin: 6px 0 0;
+  font-weight: 400;
+  font-size: 26px;
+  line-height: 1;
+  text-transform: uppercase;
+  background: var(--black);
+  padding: 4px 8px 2px;
+}
+.lk__tag {
+  margin: 0;
+  font-size: 10px;
+  color: var(--gray-1);
+  background: var(--black);
+  padding: 4px 6px;
+}
+
+.social {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+  display: flex;
+  gap: 8px;
+}
+.social a {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  background: var(--black);
+  border: 1px solid var(--line-2);
+  color: var(--text);
+  transition: background-color .16s steps(2), color .16s steps(2), border-color .16s steps(2);
+}
+.social svg { width: 20px; height: 20px; }
+.social a:hover, .social a:focus-visible { background: var(--text); color: var(--black); border-color: var(--text); outline: none; }
+
+/* Botones */
+.lk__list { display: flex; flex-direction: column; gap: 10px; }
+.lk-btn {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr) 24px;
+  align-items: center;
+  gap: 14px;
+  min-height: 72px;
+  padding: 12px 16px 12px 12px;
+  background: var(--black);
+  border: 1px solid var(--gray-2);
+  color: var(--text);
+  transition: background-color .16s steps(2), color .16s steps(2), border-color .16s steps(2);
+}
+.lk-btn__icon {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line-2);
+  color: var(--text);
+}
+.lk-btn__icon svg { width: 22px; height: 22px; }
+.lk-btn__icon img { width: 22px; height: 22px; }
+.lk-btn__text { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.lk-btn__title {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 16px;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+.lk-btn__sub { font-size: 10px; color: var(--gray-1); letter-spacing: .08em; }
+.lk-btn__arrow { font-size: 20px; justify-self: end; transition: transform .2s steps(2); }
+
+.lk-btn:hover, .lk-btn:focus-visible { background: var(--text); color: var(--black); border-color: var(--text); outline: none; }
+.lk-btn:hover .lk-btn__sub, .lk-btn:focus-visible .lk-btn__sub { color: #333; }
+.lk-btn:hover .lk-btn__icon, .lk-btn:focus-visible .lk-btn__icon { border-color: var(--black); color: var(--black); }
+.lk-btn:hover .lk-btn__arrow, .lk-btn:focus-visible .lk-btn__arrow { transform: translateX(4px); }
+.lk-btn:active { transform: translateY(1px); }
+
+/* Primer botón: la web, en verde de marca */
+.lk-btn--main { background: var(--accent); border-color: var(--accent); color: var(--black); }
+.lk-btn--main .lk-btn__sub { color: #1b2a00; }
+.lk-btn--main .lk-btn__icon { background: var(--black); border-color: var(--black); }
+
+/* Roots Podcast Series */
+.lk__podcast { margin-top: 28px; }
+.lk__label { margin: 0 0 10px; font-size: 11px; color: var(--gray-1); background: var(--black); display: inline-block; padding: 4px 6px; }
+.lk__more { display: inline-block; margin-top: 10px; font-size: 11px; color: var(--gray-1); background: var(--black); padding: 4px 6px; }
+.lk__more:hover, .lk__more:focus-visible { color: var(--text); }
+
+.media__item {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr);
+  grid-template-rows: auto auto;
+  column-gap: 12px;
+  row-gap: 3px;
+  align-items: center;
+  width: 100%;
+  text-align: left;
+  padding: 14px 12px;
+  background: var(--black);
+  border: 1px solid var(--line-2);
+  color: var(--text);
+  font: inherit;
+  cursor: pointer;
+  border-radius: 0;
+  transition: border-color .16s steps(2);
+}
+.media__item:hover, .media__item:focus-visible { border-color: var(--accent); outline: none; }
+.media__play {
+  grid-row: 1 / 3;
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  background: var(--accent);
+  color: var(--black);
+  font-size: 12px;
+}
+.media__title { font-family: var(--font-body); font-size: 15px; line-height: 1.3; }
+.media__src { font-size: 10px; color: var(--gray-2); }
+.media__frame { width: 100%; border: 1px solid var(--line-2); background: var(--black); }
+.media__frame iframe { display: block; width: 100%; height: 450px; border: 0; }
+
+/* Pie */
+.lk__foot {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  font-size: 10px;
+  color: var(--gray-2);
+  padding: 8px 16px calc(28px + env(safe-area-inset-bottom));
+}
+.lk__foot a { color: var(--gray-1); background: var(--black); padding: 3px 5px; }
+.lk__foot a:hover, .lk__foot a:focus-visible { color: var(--text); }
+.lk__foot .sep { margin: 0 .3em; }
