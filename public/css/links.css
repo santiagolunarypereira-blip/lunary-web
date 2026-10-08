@@ -131,6 +131,8 @@ body.links-page { min-height: 100svh; }
 
 /* Roots Podcast Series: vista previa tipo SoundCloud que abre la serie */
 .lk__podcast { margin-top: 28px; }
+.lk__podcast + .lk__podcast { margin-top: 12px; }
+.rps--sp .rps__art img { object-position: center top; filter: brightness(.85); }
 .rps {
   position: relative;
   display: block;
