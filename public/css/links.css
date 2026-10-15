@@ -129,6 +129,12 @@ body.links-page { min-height: 100svh; }
 .lk-btn--main .lk-btn__sub { color: #1b2a00; }
 .lk-btn--main .lk-btn__icon { background: var(--black); border-color: var(--black); }
 
+/* Botón destacado de evento (lista anticipada): borde verde y etiqueta en verde */
+.lk-btn--hot { border-color: var(--accent); }
+.lk-btn--hot .lk-btn__sub { color: var(--accent); }
+.lk-btn--hot .lk-btn__icon { border-color: var(--accent); color: var(--accent); }
+.lk-btn--hot:hover .lk-btn__sub, .lk-btn--hot:focus-visible .lk-btn__sub { color: #2a4400; }
+
 /* Roots Podcast Series: vista previa tipo SoundCloud que abre la serie */
 .lk__podcast { margin-top: 28px; }
 .lk__podcast + .lk__podcast { margin-top: 12px; }
