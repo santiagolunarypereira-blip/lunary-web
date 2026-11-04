@@ -288,6 +288,8 @@ a.corner:hover, a.corner:focus-visible { color: var(--text); }
   text-transform: uppercase;
   overflow: hidden;
   isolation: isolate;
+  border: 0;
+  cursor: pointer;
 }
 .cta__fill {
   position: absolute;
@@ -315,7 +317,45 @@ a.corner:hover, a.corner:focus-visible { color: var(--text); }
 .cta:focus-visible .cta__arrow { transform: translateX(6px); }
 .cta:active { transform: translateY(1px); }
 .cta:focus-visible { outline: 2px solid var(--text); outline-offset: 3px; }
-.cta + .ig { margin-top: -6px; }
+.cta + .ig, .events + .ig { margin-top: -6px; }
+.cta[aria-expanded="true"] .cta__arrow { transform: rotate(90deg); }
+.cta[aria-expanded="true"]:hover .cta__arrow,
+.cta[aria-expanded="true"]:focus-visible .cta__arrow { transform: rotate(90deg) translateX(3px); }
+
+/* Listado de próximos eventos (se despliega bajo el botón principal) */
+.events { list-style: none; margin: -8px 0 0; padding: 0; width: 100%; display: flex; flex-direction: column; gap: 6px; }
+.events[hidden] { display: none; }
+.event {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 52px;
+  padding: 10px 16px;
+  border: 1px solid var(--accent);
+  border-top-width: 0;
+  background: var(--black);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  text-align: left;
+  transition: background-color .16s steps(2), color .16s steps(2);
+}
+.events li:first-child .event { border-top-width: 1px; }
+.event__name { flex: 1; min-width: 0; }
+.event__date { font-family: var(--font-mono); font-weight: 400; font-size: 12px; letter-spacing: .12em; color: var(--accent); white-space: nowrap; transition: color .16s steps(2); }
+.event__arrow { transition: transform .2s steps(2); }
+.event:hover, .event:focus-visible { background: var(--accent); color: var(--black); }
+.event:hover .event__date, .event:focus-visible .event__date { color: var(--black); }
+.event:hover .event__arrow, .event:focus-visible .event__arrow { transform: translateX(4px); }
+.event:focus-visible { outline: 2px solid var(--text); outline-offset: 3px; }
+.events.is-in .event { animation: event-in .24s steps(3) both; }
+.events.is-in li:nth-child(2) .event { animation-delay: 60ms; }
+.events.is-in li:nth-child(3) .event { animation-delay: 120ms; }
+@keyframes event-in { from { opacity: 0; transform: translateY(-6px); } }
+@media (prefers-reduced-motion: reduce) { .events.is-in .event { animation: none; } }
 
 /* Botón secundario: Instagram */
 .ig {

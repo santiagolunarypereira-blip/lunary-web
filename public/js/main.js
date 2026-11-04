@@ -471,6 +471,18 @@
     if (!document.hidden && R.cells.size && !R.raf) R.raf = requestAnimationFrame(draw);
   });
 
+  // Próximos eventos: el botón principal despliega el listado ahí mismo
+  var cta = document.querySelector('.cta[aria-controls]');
+  var events = cta && document.getElementById(cta.getAttribute('aria-controls'));
+  if (events) {
+    cta.addEventListener('click', function () {
+      var open = cta.getAttribute('aria-expanded') !== 'true';
+      cta.setAttribute('aria-expanded', open ? 'true' : 'false');
+      events.hidden = !open;
+      events.classList.toggle('is-in', open);
+    });
+  }
+
   layout();
   buildButtonPixels();
   tickClock();
