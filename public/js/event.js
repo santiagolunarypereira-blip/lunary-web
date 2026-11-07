@@ -5,12 +5,14 @@
    3. Reproductores livianos: el embed real se carga solo al tocar
    4. Barra fija de compra (celular)
    5. Aviso de cookies
+   6. Flyer animado del hero con botón de sonido (si la landing lo tiene)
    ========================================================================== */
 (function () {
   'use strict';
 
-  // Fecha del evento: sábado 14 nov 2026, 10:00 PM hora Colombia (UTC-5)
-  var START = new Date('2026-11-14T22:00:00-05:00').getTime();
+  // Fecha del evento: la define cada landing en <body data-start="...">, hora Colombia (UTC-5).
+  // Sin el atributo queda la de Human Safari: sábado 14 nov 2026, 10:00 PM.
+  var START = new Date(document.body.getAttribute('data-start') || '2026-11-14T22:00:00-05:00').getTime();
   var END = START + 8 * 60 * 60 * 1000; // la fiesta se da por terminada 8 h después
 
   /* ------------------------------------------------------------------ 1 */
@@ -121,6 +123,32 @@
         closingVisible = entries[0].isIntersecting; update();
       }).observe(closing);
     }
+  }
+
+  /* ------------------------------------------------------------------ 6 */
+  // Flyer animado del hero (si la landing lo tiene): arranca en silencio, botón para el sonido
+  var video = document.querySelector('.hero__video');
+  var sound = document.querySelector('.hero__sound');
+  if (video) {
+    var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var tryPlay = function () { var p = video.play(); if (p && p.catch) p.catch(function () {}); };
+    if (reduce) { video.removeAttribute('autoplay'); video.pause(); }
+    else {
+      // Algunos celulares bloquean el autoplay hasta el primer toque: se reintenta ahí
+      ['touchstart', 'scroll'].forEach(function (ev) {
+        window.addEventListener(ev, function once() { if (video.paused) tryPlay(); window.removeEventListener(ev, once); }, { passive: true });
+      });
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(function (e) { if (e[0].isIntersecting) tryPlay(); else video.pause(); }, { threshold: .25 }).observe(video);
+      }
+    }
+    if (sound) sound.addEventListener('click', function () {
+      video.muted = !video.muted;
+      sound.setAttribute('aria-pressed', video.muted ? 'false' : 'true');
+      sound.setAttribute('aria-label', video.muted ? 'Activar sonido' : 'Silenciar');
+      sound.querySelector('b').textContent = video.muted ? 'OFF' : 'ON';
+      if (video.paused) tryPlay();
+    });
   }
 
   /* ------------------------------------------------------------------ 5 */

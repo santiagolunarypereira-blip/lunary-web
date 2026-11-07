@@ -1,0 +1,145 @@
+/* ==========================================================================
+   Landing /alarico/ — GRV.DVSN & Lunary en Tunnel, 15 ene 2027
+   Se carga después de event.css y solo aplica a body.ev-alarico.
+   Concepto del flyer: monocromo rojo sobre negro, bloques escalonados tipo píxel,
+   nombres en Helvetica Bold (rosado claro), microtextos mono y el "15" de Lunary.
+   ========================================================================== */
+body.ev-alarico {
+  --ev: #c21616;             /* rojo del flyer */
+  --accent: #c21616;
+  --pink: #ebc4be;           /* el blanco rosado de los nombres */
+  --line: rgba(194, 22, 22, .10);
+  --line-2: rgba(194, 22, 22, .28);
+  --font-display: "Helvetica Neue", Helvetica, "Inter Tight", Arial, sans-serif;
+}
+body.ev-alarico .display { font-family: var(--font-display); font-weight: 700; letter-spacing: -.03em; }
+body.ev-alarico ::selection { background: var(--ev); color: #fff; }
+
+/* Retícula roja muy tenue */
+body.ev-alarico .ev-grid {
+  background-image:
+    linear-gradient(to right, var(--line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--line) 1px, transparent 1px);
+}
+
+/* Barra superior */
+body.ev-alarico .ev-top { border-bottom-color: var(--line-2); }
+body.ev-alarico .ev-top__tickets { color: #fff; background: var(--ev); }
+body.ev-alarico .ev-top__tickets:hover, body.ev-alarico .ev-top__tickets:focus-visible { background: var(--pink); color: #000; }
+
+/* Microtextos verticales del flyer */
+.micro { display: none; }
+@media (min-width: 1200px) {
+  .micro {
+    position: fixed; left: 22px; top: 50%; z-index: 2; transform: translateY(-50%);
+    display: flex; flex-direction: column; gap: 90px; pointer-events: none;
+  }
+  .micro span { writing-mode: vertical-rl; transform: rotate(180deg); font-size: 10px; letter-spacing: .3em; text-transform: uppercase; color: rgba(235, 196, 190, .55); }
+  .micro span:last-child { color: var(--ev); }
+}
+
+/* --------------------------------------------------------------------------
+   Hero
+   -------------------------------------------------------------------------- */
+body.ev-alarico .hero__art { border-color: var(--line-2); overflow: visible; }
+.hero__video { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; background: #000; }
+.hero__sound {
+  position: absolute; right: 0; bottom: 0; z-index: 2;
+  font: inherit; font-size: 10px; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--pink); background: #000; border: 0; padding: 7px 10px; cursor: pointer;
+}
+.hero__sound b { font-weight: 400; color: var(--ev); margin-left: 4px; }
+.hero__sound[aria-pressed="true"] b { color: #fff; }
+.hero__sound:hover, .hero__sound:focus-visible { background: var(--ev); color: #fff; outline: none; }
+.hero__sound:hover b, .hero__sound:focus-visible b { color: #000; }
+
+/* Bloques escalonados del flyer */
+.steps { position: absolute; right: -1px; top: -1px; width: 0; height: 0; pointer-events: none; }
+.steps i { position: absolute; background: var(--ev); }
+.steps i:nth-child(1) { right: 0; top: -18px; width: 54px; height: 18px; }
+.steps i:nth-child(2) { right: -18px; top: 0; width: 18px; height: 54px; }
+.steps i:nth-child(3) { right: -18px; top: -18px; width: 18px; height: 18px; background: #000; outline: 1px solid var(--ev); }
+@media (max-width: 959px) { .steps { display: none; } }
+
+.kicker { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; color: var(--pink); letter-spacing: .14em; text-transform: uppercase; }
+.kicker__logo { height: 13px; width: auto; }
+.kicker__logo--lnry { height: 22px; }
+body.ev-alarico .kicker .x { color: var(--ev); text-transform: none; }
+
+body.ev-alarico .bignum { height: clamp(58px, 15vw, 96px); width: auto; }
+body.ev-alarico .date__meta { color: var(--pink); }
+body.ev-alarico .date__month { color: var(--ev); letter-spacing: .3em; text-transform: uppercase; }
+
+/* Line up del hero con jerarquía: main headliner, support headliner y locales */
+body.ev-alarico .headliners { text-transform: none; font-weight: 700; letter-spacing: -.03em; line-height: .95; }
+body.ev-alarico .headliners .hl--main { display: block; font-size: clamp(72px, 21vw, 136px); color: var(--pink); letter-spacing: -.045em; }
+.hl__labels { display: block; margin: 8px 0 14px; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--ev); font-weight: 400; }
+body.ev-alarico .hl--second { display: block; font-size: clamp(32px, 8.4vw, 54px); color: var(--pink); }
+body.ev-alarico .headliners small { color: var(--ev); border-color: var(--ev); text-transform: uppercase; letter-spacing: .14em; font-weight: 400; transform: translateY(-8px); }
+body.ev-alarico .headliners .support { font-size: clamp(26px, 6.4vw, 40px); color: rgba(235, 196, 190, .72); margin-top: 2px; }
+
+body.ev-alarico .cd__n { font-weight: 700; color: var(--pink); }
+body.ev-alarico .countdown__cells, body.ev-alarico .cd { border-color: var(--line-2); }
+body.ev-alarico .countdown__done { color: var(--ev); }
+
+/* Botones */
+body.ev-alarico .btn--primary { background: var(--ev); color: #fff; }
+body.ev-alarico .btn--ghost { border-color: rgba(235, 196, 190, .45); }
+body.ev-alarico .btn:hover, body.ev-alarico .btn:focus-visible { background: var(--pink); color: #000; border-color: var(--pink); }
+
+/* --------------------------------------------------------------------------
+   Bloques
+   -------------------------------------------------------------------------- */
+body.ev-alarico .block { position: relative; }
+body.ev-alarico .block::before { /* píxel rojo al inicio de cada bloque, como los escalones del flyer */
+  content: ""; position: absolute; left: var(--pad); top: -1px; width: 36px; height: 6px; background: var(--ev);
+}
+body.ev-alarico .block__title { color: var(--pink); }
+body.ev-alarico .story__text a { border-bottom-color: var(--ev); }
+body.ev-alarico .story__text a:hover, body.ev-alarico .story__text a:focus-visible { color: var(--ev); }
+
+/* Line up por niveles */
+.cards--tiers { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.cards--tiers .tier--main, .cards--tiers .tier--second { grid-column: 1 / -1; }
+.cards--tiers .tier--main img { aspect-ratio: 16 / 10; object-position: center 35%; }
+.cards--tiers .tier--second img { aspect-ratio: 16 / 10; }
+@media (min-width: 960px) {
+  .cards--tiers { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .cards--tiers .tier--main img { aspect-ratio: 2.4 / 1; }
+  .cards--tiers .tier--second { grid-column: span 2; }
+}
+body.ev-alarico .card { outline-color: var(--line-2); }
+body.ev-alarico .card__name { font-weight: 700; text-transform: none; letter-spacing: -.02em; color: var(--pink); }
+.tier--main .card__name { font-size: clamp(40px, 11vw, 96px); bottom: 26px; padding: 6px 12px 4px; }
+.tier--second .card__name { font-size: clamp(26px, 6vw, 44px); padding: 5px 10px 4px; }
+body.ev-alarico .card__tag { letter-spacing: .1em; text-transform: uppercase; }
+.card__kicker {
+  position: absolute; left: 0; top: 0; z-index: 1; font-size: 10px; letter-spacing: .16em; text-transform: uppercase;
+  color: #fff; background: var(--ev); padding: 6px 9px;
+}
+body.ev-alarico .card:hover .card__name, body.ev-alarico .card:focus-visible .card__name { background: var(--ev); color: #fff; }
+
+body.ev-alarico .artist__name { font-weight: 700; text-transform: none; color: var(--pink); }
+body.ev-alarico .artist summary:hover .artist__name, body.ev-alarico .artist summary:focus-visible .artist__name { color: var(--ev); }
+.media__group { margin: 22px 0 0; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--gray-2); }
+body.ev-alarico .media__play { color: #fff; }
+body.ev-alarico .media__item { background: #080202; }
+
+/* Conoce a Alarico: entrevistas en grilla */
+.media--grid { max-width: none; }
+@media (min-width: 760px) { .media--grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* Créditos con logos */
+.credits__list--logos { align-items: center; gap: 18px 36px; }
+.credits__list--logos a { display: flex; align-items: center; gap: 10px; border: 0; padding: 0; }
+.credits__list--logos img { height: 22px; width: auto; opacity: .9; }
+.credits__list--logos li:nth-child(2) img { height: 30px; }
+.credits__list--logos li:nth-child(3) img { height: 36px; }
+.credits__list--logos span { font-size: 11px; color: var(--gray-2); }
+.credits__list--logos a:hover span, .credits__list--logos a:focus-visible span { color: var(--pink); }
+
+body.ev-alarico .closing__title { color: var(--pink); }
+
+/* Ajustes */
+body.ev-alarico .artist__text > p.media__group { margin: 26px 0 0; font-size: 10px; line-height: 1.4; letter-spacing: .2em; color: var(--gray-2); }
+.credits__list--logos li:nth-child(1) img { height: 15px; }
