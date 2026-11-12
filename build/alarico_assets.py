@@ -61,3 +61,13 @@ Image.open(os.path.join(ART, "GrvLun_Alarico_4x5.png")).convert("RGB").resize((7
 # Imagen para compartir: el flyer 1:1, igual que Human Safari (720x720)
 Image.open(os.path.join(ART, "GrvLun_Alarico_1x1.png")).convert("RGB").resize((720, 720), Image.LANCZOS).save(os.path.join(ROOT, "public", "eventos-assets", "og-alarico.jpg"), quality=86)
 print("listo")
+
+# Versiones verticales para celular de las tarjetas grandes (Alarico y Sons of Hidden):
+# más aire arriba de la cabeza y el rostro en el tercio superior.
+# (archivo, slug, y del recorte, zoom, x: corrimiento horizontal del recorte en fracción del ancho)
+for f, slug, oy, z, ox in (("Alarico/Alarico3.jpg", "alarico-m", .0, .9, 0), ("Sons Of Hidden/Photo 10-06-26, 1 46 10 PM.jpg", "sons-of-hidden-m", .04, .78, .13)):
+    im = ImageOps.exif_transpose(Image.open(os.path.join(PK, f))).convert("RGB")
+    W0 = im.width; dx = int(W0 * ox)
+    im = im.crop((max(0, dx), 0, min(W0, W0 + dx), im.height))
+    c = crop(im, .9, oy, z); c.thumbnail((1800, 2000)); grade(c.resize((900, 1000), Image.LANCZOS)).save(os.path.join(OUT, f"{slug}.webp"), "WEBP", quality=80, method=6)
+    print("ok", slug)
